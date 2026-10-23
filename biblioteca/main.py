@@ -35,17 +35,20 @@ def main():
         elif opcion == "2":
             aniadir_libro(mi_catalogo)
         elif opcion == "3":
+            buscar_libro(mi_catalogo)
+        elif opcion == "4":
             activo = False
             print("\nHa salido del programa con éxito.")
-        elif opcion != "3":
-            print("ERROR. Debe de introducir un número válido (1,2 o 3).")
+        elif opcion != "4":
+            print("ERROR. Debe de introducir un número válido (1, 2, 3 o 4).")
 
 
 def menu_interactivo():
     print("\n----- Menú de la biblioteca -----\n")
     print("1. Ver catálogo")
     print("2. Añadir libro")
-    print("3. Salir")
+    print("3. Buscar libro")
+    print("4. Salir")
     return input("Por favor, seleccione una opción: ")
 
 def ver_catalogo(catalogo_recibido):
@@ -68,5 +71,12 @@ def aniadir_libro(catalogo_recibido):
     catalogo_recibido.agregar_libro(nuevo_libro)
     print("\nEl libro se ha introducido correctamente.")
 
+def buscar_libro(catalogo_recibido):
+    titulo = input("Por favor, introduzca el título del libro: ")
+    existe = catalogo_recibido.buscar_libro(titulo)
+    if not existe:
+        print("\nLamentablemente, no disponemos de dicho libro.")
+    else:
+        print(f"\n{existe}")
 
 main()
