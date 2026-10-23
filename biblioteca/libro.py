@@ -1,5 +1,5 @@
 class Libro:
-    def __init__(self, titulo, autor, anio):
+    def __init__(self, titulo, autor, anio: int):
         self.titulo = titulo
         self.autor = autor
         self.anio = anio
@@ -13,6 +13,5 @@ class Libro:
 """
 
 mi_libro = Libro("Nacidos de la bruma", "Brandon Sanderson", "2006")
-print(mi_libro) // Dispara mi_libro correctamente.
-"""
+print(mi_libro) // Dispara mi_libro correctamente. """
     
