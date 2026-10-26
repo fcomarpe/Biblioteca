@@ -1,5 +1,3 @@
-import libro
-
 class Biblioteca:
     def __init__(self):
         self.lista = []
@@ -15,7 +13,7 @@ class Biblioteca:
 
     def devolver_libro(self, titulo_devuelto):
         return self.buscar_libro(titulo_devuelto)
-            
+
 
 """
 

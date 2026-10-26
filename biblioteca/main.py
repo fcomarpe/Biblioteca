@@ -6,21 +6,9 @@ def main():
     mi_catalogo = biblioteca.Biblioteca()
 
     libros_iniciales = [
-        libro.Libro(
-            "Harry Potter y la piedra filosofal",
-            "J.K. Rowling",
-            1997
-        ),
-        libro.Libro(
-            "Nacidos de la bruma",
-            "Brandon Sanderson",
-            2006
-        ),
-        libro.Libro(
-            "El Principito",
-            "Antoine de Saint-Exupéry",
-            1943
-        ),
+        libro.Libro("Harry Potter y la piedra filosofal", "J.K. Rowling", 1997),
+        libro.Libro("Nacidos de la bruma", "Brandon Sanderson", 2006),
+        libro.Libro("El Principito", "Antoine de Saint-Exupéry", 1943),
     ]
     for libro_actual in libros_iniciales:
         mi_catalogo.agregar_libro(libro_actual)
@@ -41,10 +29,15 @@ def main():
         elif opcion == "5":
             devolver_libro(mi_catalogo)
         elif opcion == "6":
+            a, b, c = estadisticas_biblioteca(mi_catalogo)
+            print("\nTotal de libros:", a)
+            print("Libros disponibles:", b)
+            print("Libros prestados:", c)
+        elif opcion == "7":
             activo = False
             print("\nHa salido del programa con éxito.")
-        elif opcion != "6":
-            print("ERROR. Debe de introducir un número válido (1, 2, 3 o 4).")
+        elif opcion != "7":
+            print("\nERROR. Debe de introducir un número válido (1-7).")
 
 
 def menu_interactivo():
@@ -52,15 +45,18 @@ def menu_interactivo():
     print("1. Ver catálogo")
     print("2. Añadir libro")
     print("3. Buscar libro")
-    print("4. Préstamo de libro.")
-    print("5. Devolición de libro.")
-    print("6. Salir")
+    print("4. Préstamo de libro")
+    print("5. Devolución de libro")
+    print("6. Estadísticas de la biblioteca")
+    print("7. Salir")
     return input("\nPor favor, seleccione una opción: ")
+
 
 def ver_catalogo(catalogo_recibido):
     print("\n----- Catálogo de la biblioteca -----\n")
-    for libro in catalogo_recibido.lista:
-        print(libro)
+    for libro_catalogo in catalogo_recibido.lista:
+        print(libro_catalogo)
+
 
 def aniadir_libro(catalogo_recibido):
     titulo = input("Por favor, introduzca el título del libro: ")
@@ -68,14 +64,15 @@ def aniadir_libro(catalogo_recibido):
 
     while True:
         try:
-           anio = int(input("Por favor, introduzca el año de del libro: "))
-           break
+            anio = int(input("Por favor, introduzca el año de del libro: "))
+            break
         except ValueError:
             print("ERROR. Debe de introducir un número.")
 
     nuevo_libro = libro.Libro(titulo, autor, anio)
     catalogo_recibido.agregar_libro(nuevo_libro)
     print("\nEl libro se ha introducido correctamente.")
+
 
 def buscar_libro(catalogo_recibido):
     titulo = input("Por favor, introduzca el título del libro: ")
@@ -84,6 +81,7 @@ def buscar_libro(catalogo_recibido):
         print("\nLamentablemente, no disponemos de dicho libro.")
     else:
         print(f"\n{existe}")
+
 
 def prestar_libro(catalogo_recibido):
     titulo = input("Por favor, introduzca el título del libro: ")
@@ -96,6 +94,7 @@ def prestar_libro(catalogo_recibido):
         print("\nEl libro que ha buscado está disponible.")
         estado.disponible = False
 
+
 def devolver_libro(catalogo_recibido):
     titulo = input("Por favor, introduzca el título del libro que desea devolver: ")
     estado = catalogo_recibido.devolver_libro(titulo)
@@ -106,6 +105,19 @@ def devolver_libro(catalogo_recibido):
         estado.disponible = True
     else:
         print("\nERROR. El libro introducido ya ha sido devuelto.")
+
+
+def estadisticas_biblioteca(catalogo_recibido):
+    disponibles = 0
+    prestados = 0
+
+    for libro_actual in catalogo_recibido.lista:
+        if libro_actual.disponible:
+            disponibles += 1
+        else:
+            prestados += 1
+
+    return len(catalogo_recibido.lista), disponibles, prestados
 
 
 main()
