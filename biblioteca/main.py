@@ -37,9 +37,13 @@ def main():
         elif opcion == "3":
             buscar_libro(mi_catalogo)
         elif opcion == "4":
+            prestar_libro(mi_catalogo)
+        elif opcion == "5":
+            devolver_libro(mi_catalogo)
+        elif opcion == "6":
             activo = False
             print("\nHa salido del programa con éxito.")
-        elif opcion != "4":
+        elif opcion != "6":
             print("ERROR. Debe de introducir un número válido (1, 2, 3 o 4).")
 
 
@@ -48,8 +52,10 @@ def menu_interactivo():
     print("1. Ver catálogo")
     print("2. Añadir libro")
     print("3. Buscar libro")
-    print("4. Salir")
-    return input("Por favor, seleccione una opción: ")
+    print("4. Préstamo de libro.")
+    print("5. Devolición de libro.")
+    print("6. Salir")
+    return input("\nPor favor, seleccione una opción: ")
 
 def ver_catalogo(catalogo_recibido):
     print("\n----- Catálogo de la biblioteca -----\n")
@@ -78,5 +84,28 @@ def buscar_libro(catalogo_recibido):
         print("\nLamentablemente, no disponemos de dicho libro.")
     else:
         print(f"\n{existe}")
+
+def prestar_libro(catalogo_recibido):
+    titulo = input("Por favor, introduzca el título del libro: ")
+    estado = catalogo_recibido.buscar_libro(titulo)
+    if not estado:
+        print("\nNo disponemos del libro que ha introducido.")
+    elif not estado.disponible:
+        print("\nLamentablemente, este libro ya está prestado.")
+    else:
+        print("\nEl libro que ha buscado está disponible.")
+        estado.disponible = False
+
+def devolver_libro(catalogo_recibido):
+    titulo = input("Por favor, introduzca el título del libro que desea devolver: ")
+    estado = catalogo_recibido.devolver_libro(titulo)
+    if not estado:
+        print("\nERROR. El libro que trata de devolver no existe.")
+    elif not estado.disponible:
+        print("\nLibro devuelto con éxito.")
+        estado.disponible = True
+    else:
+        print("\nERROR. El libro introducido ya ha sido devuelto.")
+
 
 main()

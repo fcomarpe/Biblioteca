@@ -13,6 +13,9 @@ class Biblioteca:
                 return libro_buscado
         return None
 
+    def devolver_libro(self, titulo_devuelto):
+        return self.buscar_libro(titulo_devuelto)
+            
 
 """
 
